@@ -7,8 +7,10 @@ public class InventoryDbContext(DbContextOptions options) : DbContext(options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-         
-         sharedProperties.ConfigureCommonProperties(modelBuilder);
+        modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+        modelBuilder.ApplyConfiguration(new StuffConfiguration());
+
+        sharedProperties.ConfigureCommonProperties(modelBuilder);
          sharedProperties.AddIsDeleteFilter(modelBuilder);
        
     }
