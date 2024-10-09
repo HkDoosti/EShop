@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+
+  inventorydb:
+    container_name: inventorydb
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=InventoryDb
+    restart: always
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/Lib/postgresql/data/
+  pgadmin:
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@Inventory.com
+      - PGADMIN_DEFAULT_PASSWORD=1234
+    restart: always
+    ports:
+      - "5070:80"
+
+  inventory.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+    ports:
+      - "10000:80"
+    depends_on:
+      - inventorydb

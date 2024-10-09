@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  inventorydb:
+    image: postgres
+  pgadmin:
+    image: dpage/pgadmin4
+  inventory.api:
+    image: ${DOCKER_REGISTRY-}inventoryapi
+    build:
+      context: .
+      dockerfile: src/services/Inventory/Inventory.Api/Dockerfile
+volumes:
+    postgres_data:
+    pgadmin_data:
