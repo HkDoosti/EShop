@@ -1,6 +1,4 @@
-﻿
-
-namespace Inventory.Domain.Data.Entities;
+﻿namespace Inventory.Domain.Data.Entities;
 
 public class Category : InventoryBaseEntity
 {

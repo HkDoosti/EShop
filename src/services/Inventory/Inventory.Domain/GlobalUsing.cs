@@ -1,6 +1,7 @@
-﻿global using Microsoft.EntityFrameworkCore;
+﻿//------------------------Microsoft
+global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
-global using Inventory.Domain.Data.Entities;
+//------------------------SharedProject
 global using SharedProject.BaseEntities;
 
 

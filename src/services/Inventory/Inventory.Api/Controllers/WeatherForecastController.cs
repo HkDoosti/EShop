@@ -1,5 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
-using SharedProject.ActionFilters;
+
 
 namespace Inventory.Api.Controllers
 {

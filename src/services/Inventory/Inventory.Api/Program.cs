@@ -1,8 +1,7 @@
 
 
 
-using SharedProject.ActionFilters;
-using SharedProject.Middlewars;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
