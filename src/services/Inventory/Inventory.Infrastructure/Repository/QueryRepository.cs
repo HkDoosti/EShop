@@ -2,44 +2,15 @@
 
 namespace Inventory.Infrastructure.Repository;
 
-public class Repository<TEntity, TID>(InventoryDbContext context)
-    : IRepository<TEntity, TID>, IDisposable
+public class QueryRepository<TEntity, TID>(InventoryDbContext context)
+    : IQueryRepository<TEntity, TID>, IDisposable
     where TEntity : BaseEntity<TID>
 {
     private readonly InventoryDbContext _context = context;
     private readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
     private bool disposedValue;
 
-    public void Add(TEntity entity)
-    {
-        _dbSet.Add(entity);
-    }
-
-    public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
-    {
-        await _dbSet.AddAsync(entity, cancellationToken);
-    }
-
-    public void Delete(TID id)
-    {
-        TEntity entity = GetById(id);
-
-        if (entity != null)
-        {
-            _dbSet.Remove(entity);
-        }
-    }
-
-    public async Task DeleteAsync(TID id, CancellationToken cancellationToken)
-    {
-        TEntity entity = await GetAsyncById(id, cancellationToken);
-
-        if (entity != null)
-        {
-            _dbSet.Remove(entity);
-        }
-    }
-
+   
     public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
     {
         return _dbSet.Where(predicate).ToList();
@@ -87,21 +58,6 @@ public class Repository<TEntity, TID>(InventoryDbContext context)
     {
         var result = _dbSet.Find(id);
         return result ?? (TEntity)new object();
-    }
-
-    public void SaveChange()
-    {
-        _context.SaveChanges();
-    }
-
-    public async Task SaveChangeAsync(CancellationToken cancellationToken)
-    {
-      await  _context.SaveChangesAsync(cancellationToken);
-    }
-
-    public void Update(TEntity entity)
-    {
-          _context.Entry(entity).State = EntityState.Modified;  
     }
 
     protected virtual void Dispose(bool disposing)

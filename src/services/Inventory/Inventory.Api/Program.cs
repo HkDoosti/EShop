@@ -13,6 +13,7 @@ builder.Services.AddControllers(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.AddInventoryDbContext();
+builder.AddServices();
 
 var app = builder.Build();
 

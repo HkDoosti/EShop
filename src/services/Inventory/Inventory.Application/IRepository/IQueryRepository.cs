@@ -1,16 +1,9 @@
 ﻿
 namespace Inventory.Application.IRepository;
 
-public interface IRepository<TEntity,TID> where TEntity : BaseEntity<TID>
+public interface IQueryRepository<TEntity,TID> where TEntity : BaseEntity<TID>
 {
-    Task AddAsync(TEntity entity, CancellationToken cancellationToken);
-    Task DeleteAsync(TID id, CancellationToken cancellationToken);
-    Task SaveChangeAsync(CancellationToken cancellationToken);
-
-    void Add(TEntity entity);
-    void Update(TEntity entity);
-    void Delete(TID id);
-    void SaveChange();
+    
     Task<TEntity> GetAsyncById(TID id, CancellationToken cancellationToken);
     Task<IEnumerable<TEntity>> GetAsyncAll(CancellationToken cancellationToken);
     Task<IEnumerable<TEntity>> FindAsyncTracking(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
