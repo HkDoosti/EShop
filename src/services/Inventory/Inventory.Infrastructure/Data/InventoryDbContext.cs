@@ -1,4 +1,6 @@
-﻿namespace Inventory.Infrastructure.Data;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+namespace Inventory.Infrastructure.Data;
 public class InventoryDbContext(DbContextOptions options) : DbContext(options)
 {
     SharedProperties<InventoryDomainAssembly, int, int> sharedProperties = new SharedProperties<InventoryDomainAssembly, int, int>();
@@ -14,5 +16,9 @@ public class InventoryDbContext(DbContextOptions options) : DbContext(options)
          sharedProperties.AddIsDeleteFilter(modelBuilder);
        
     }
+    //public override EntityEntry<TEntity> Remove<TEntity>(TEntity entity)
+    //{
+
+    //}
 }
 

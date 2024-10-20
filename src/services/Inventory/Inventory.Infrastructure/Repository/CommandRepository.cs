@@ -29,9 +29,9 @@ public class CommandRepository<TEntity, TID>(InventoryDbContext context)
     }
     
 
-    public async Task SaveChangeAsync(CancellationToken cancellationToken)
+    public async Task<bool> SaveChangeAsync(CancellationToken cancellationToken)
     {
-      await  _context.SaveChangesAsync(cancellationToken);
+     return await  _context.SaveChangesAsync(cancellationToken)>0;
     }
 
     public void Update(TEntity entity)

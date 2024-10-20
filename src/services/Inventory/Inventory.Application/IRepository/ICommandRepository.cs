@@ -8,5 +8,5 @@ public interface ICommandRepository<TEntity,TID> where TEntity : BaseEntity<TID>
     void Delete(TEntity entity);
     void Update(TEntity entity);
     void SaveChange();
-    Task SaveChangeAsync(CancellationToken cancellationToken);
+    Task<bool> SaveChangeAsync(CancellationToken cancellationToken);
 }

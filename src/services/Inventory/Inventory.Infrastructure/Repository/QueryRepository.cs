@@ -1,31 +1,55 @@
 ﻿
 
+
+
 namespace Inventory.Infrastructure.Repository;
 
-public class QueryRepository<TEntity, TID>(InventoryDbContext context)
+public class QueryRepository<TEntity, TID>(
+    InventoryDbContext context)
     : IQueryRepository<TEntity, TID>, IDisposable
     where TEntity : BaseEntity<TID>
 {
-    private readonly InventoryDbContext _context = context;
+    protected readonly InventoryDbContext _context = context;
     private readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
     private bool disposedValue;
+    public bool isDeleteFilterActive { get; set; } = true;
 
-   
+    public IQueryable<TEntity> GetEntities() 
+    {
+        if (isDeleteFilterActive)
+        {
+            return _context.Set<TEntity>().IgnoreQueryFilters();
+        }
+        else
+        {
+            return _context.Set<TEntity>();
+        }
+    }
+    public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate,CancellationToken cancellationToken)
+    {
+        try { 
+            return await GetEntities().Where(predicate).CountAsync(cancellationToken); 
+        } catch (Exception ex) 
+        {
+            throw;
+        }
+        
+    }
     public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
     {
-        return _dbSet.Where(predicate).ToList();
+        return GetEntities().Where(predicate).ToList();
     }
     public async Task<IEnumerable<TEntity>> FindAsyncTracking(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
     {
-        return await _dbSet.AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
+        return await GetEntities().AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
     }
     public IQueryable<TEntity> FindQueryable(Expression<Func<TEntity, bool>> predicate)
     {
-        return _dbSet.AsNoTracking().Where(predicate);
+        return GetEntities().AsNoTracking().Where(predicate);
     }
     public async Task<IEnumerable<TEntity>> FindAsyncNoTracking(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
     {
-        return await _dbSet
+        return await GetEntities()
             .AsNoTracking()
             .Where(predicate)
             .ToListAsync(cancellationToken) ??
@@ -34,7 +58,7 @@ public class QueryRepository<TEntity, TID>(InventoryDbContext context)
 
     public IEnumerable<TEntity> GetAll()
     {
-        return _dbSet
+        return GetEntities()
             .AsNoTracking()
             .ToList() ??
             Enumerable.Empty<TEntity>();
@@ -42,19 +66,20 @@ public class QueryRepository<TEntity, TID>(InventoryDbContext context)
 
     public async Task<IEnumerable<TEntity>> GetAsyncAll(CancellationToken cancellationToken)
     {
-        return await _dbSet
+        return await GetEntities()
             .AsNoTracking()
             .ToListAsync(cancellationToken)??
             Enumerable.Empty<TEntity>();
     }
 
-    public async Task<TEntity> GetAsyncById(TID id, CancellationToken cancellationToken)
+    public async Task<TEntity> GetAsyncByIdFiltered(TID id, CancellationToken cancellationToken)
     {
+        
         var result= await _dbSet.FindAsync(id,cancellationToken);
         return result?? (TEntity)new object();
     }
 
-    public TEntity GetById(TID id)
+    public TEntity GetByIdFiltered(TID id)
     {
         var result = _dbSet.Find(id);
         return result ?? (TEntity)new object();
