@@ -3,6 +3,8 @@ version: '3.4'
 services:
   inventorydb:
     image: postgres
+  basketdb:
+    image: redis:alpine
   pgadmin:
     image: dpage/pgadmin4
   inventory.api:
@@ -10,6 +12,13 @@ services:
     build:
       context: .
       dockerfile: src/services/Inventory/Inventory.Api/Dockerfile
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: src/services/Basket/Basket.Api/Dockerfile
+
 volumes:
     postgres_data:
     pgadmin_data:
+

@@ -5,7 +5,8 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "product.api": "StartDebugging",
-        "inventory.api": "StartDebugging"
+        "inventory.api": "StartDebugging",
+        "basket.api": "StartDebugging"
       }
     }
   }
