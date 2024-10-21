@@ -1,14 +1,15 @@
-﻿namespace Inventory.Application.Command.CategoryCommand.AddCategoryCommand;
+﻿
+namespace Inventory.Application.Command.CategoryCommand.EditCategoryCommand;
 
-public sealed class AddCategoryCommandRequestValidator
-    : AbstractValidator<AddCategoryCommandRequest>
+public sealed class EditCategoryCommandRequestValidator
+    : AbstractValidator<EditCategoryCommandRequest>
 {
-    public AddCategoryCommandRequestValidator()
+    public EditCategoryCommandRequestValidator()
     {
-        RuleFor(category => category.ParentId)
-            .NotEqual(0).WithMessage(DomainErrors.CategoryErrors.ParentIdCanNotBeZero.Message);
+        RuleFor(category => category.Id)
+           .NotNull().NotEqual(0);
 
-            RuleFor(category => category.Title)
+        RuleFor(category => category.Title)
             .NotNull().WithMessage(DomainErrors.CategoryErrors.TitleCanNotBeNull.Message)
             .NotEmpty().WithMessage(DomainErrors.CategoryErrors.TitleCanNotBeEmpty.Message)
             .Length(1, 100).WithMessage(DomainErrors.CategoryErrors.TitleInvalidLength.Message);

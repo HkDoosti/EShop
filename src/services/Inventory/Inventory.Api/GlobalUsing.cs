@@ -15,6 +15,8 @@ global using Inventory.Application.IRepository.ICustomRepositories;
 global using Inventory.Infrastructure.Repository.CustomRepositories;
 global using Inventory.Application.Behaviors;
 global using Inventory.Application.Command.CategoryCommand.AddCategoryCommand;
+global using Inventory.Application.Command.CategoryCommand.DeleteCategoryCommand;
+global using Inventory.Application.Command.CategoryCommand.EditCategoryCommand;
 //-----------SharedProject
 global using SharedProject.ActionFilters;
 global using SharedProject.Middlewars;

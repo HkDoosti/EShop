@@ -10,6 +10,10 @@ public static class DomainErrors
             "Category.NotFound",
             $"The Category with the identifier {id} was not found.");
 
+        public static readonly Func<int, Error> ParentNotFound = parentId => new Error(
+            "Category.NotFound",
+            $"The Category with the identifier {parentId} was not found.");
+
         public static readonly Error ParentIdCanNotBeZero = new Error(
             "Category.ParentIdCanNotBeZero",
             $"ParentId cannot be zero.");

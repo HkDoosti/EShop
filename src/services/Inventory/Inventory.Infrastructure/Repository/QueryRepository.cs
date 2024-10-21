@@ -76,13 +76,13 @@ public class QueryRepository<TEntity, TID>(
     {
         
         var result= await _dbSet.FindAsync(id,cancellationToken);
-        return result?? (TEntity)new object();
+        return result;
     }
 
     public TEntity GetByIdFiltered(TID id)
     {
         var result = _dbSet.Find(id);
-        return result ?? (TEntity)new object();
+        return result ;
     }
 
     protected virtual void Dispose(bool disposing)

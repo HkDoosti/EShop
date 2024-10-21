@@ -10,11 +10,13 @@ public class CommandRepository<TEntity, TID>(InventoryDbContext context)
 
     public void Add(TEntity entity)
     {
+        _context.Entry(entity).Property<DateTime>("CreationDateTime").CurrentValue = DateTime.UtcNow;
         _dbSet.Add(entity);
     }
 
     public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
     {
+        _context.Entry(entity).Property<DateTime>("CreationDateTime").CurrentValue = DateTime.UtcNow;
         await _dbSet.AddAsync(entity, cancellationToken);
     }
 
@@ -37,7 +39,8 @@ public class CommandRepository<TEntity, TID>(InventoryDbContext context)
 
     public void Update(TEntity entity)
     {
-          _context.Entry(entity).State = EntityState.Modified;  
+        _context.Entry(entity).Property<DateTime>("EditionDateTime").CurrentValue = DateTime.UtcNow;
+        _context.Entry(entity).State = EntityState.Modified;  
     }
 
     protected virtual void Dispose(bool disposing)
