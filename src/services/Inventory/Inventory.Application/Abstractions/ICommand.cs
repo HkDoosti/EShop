@@ -1,6 +1,4 @@
-﻿using Inventory.Domain.Shared;
-
-namespace Inventory.Application.Abstractions
+﻿namespace Inventory.Application.Abstractions
 {
     public interface ICommand:IRequest<Result>
     {

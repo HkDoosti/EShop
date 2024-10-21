@@ -20,7 +20,8 @@ public class CommandRepository<TEntity, TID>(InventoryDbContext context)
 
     public void Delete(TEntity entity)
     {
-        _context.Entry(entity).Property<bool>("IsDeleted").CurrentValue = true;
+        _context.Remove(entity);
+        //_context.Entry(entity).Property<bool>("IsDeleted").CurrentValue = true;
     }
 
     public void SaveChange()

@@ -1,6 +1,6 @@
 ﻿namespace Inventory.Api.Controllers;
 
-public class StuffController(IMediator mediator)
-    : InventoryBaseController(mediator)
+public class StuffController(ISender sender)
+    : InventoryBaseController(sender)
 {
 }

@@ -1,4 +1,6 @@
-﻿namespace Inventory.Application.Command.CategoryCommand.AddCategoryCommand;
+﻿using Inventory.Domain.Errors;
+
+namespace Inventory.Application.Command.CategoryCommand.AddCategoryCommand;
 
 public class AddCategoryCommandRequestValidator
     : AbstractValidator<AddCategoryCommandRequest>
@@ -6,19 +8,15 @@ public class AddCategoryCommandRequestValidator
     public AddCategoryCommandRequestValidator()
     {
         RuleFor(category => category.ParentId)
-            .NotEqual(0).WithMessage("Category ParentId cannot be zero.");
-
-         
-          
-    
+            .NotEqual(0).WithMessage(DomainErrors.CategoryErrors.ParentIdCanNotBeZero.Message);
 
             RuleFor(category => category.Title)
-            .NotNull().WithMessage("Category Title can not bee null.")
-            .NotEmpty().WithMessage("Category Title is required.")
-            .Length(1, 100).WithMessage("Category Title must be between 1 and 100 characters.");
+            .NotNull().WithMessage(DomainErrors.CategoryErrors.TitleCanNotBeNull.Message)
+            .NotEmpty().WithMessage(DomainErrors.CategoryErrors.TitleCanNotBeEmpty.Message)
+            .Length(1, 100).WithMessage(DomainErrors.CategoryErrors.TitleInvalidLength.Message);
 
         RuleFor(category => category.Description)
-            .MaximumLength(2000).WithMessage("Category Description must have less than 2000 characters.");
+            .MaximumLength(2000).WithMessage(DomainErrors.CategoryErrors.DescriptionInvalidLength.Message);
 
         
     }

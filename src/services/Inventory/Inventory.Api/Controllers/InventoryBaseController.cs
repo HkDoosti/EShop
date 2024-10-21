@@ -1,7 +1,5 @@
-﻿using Inventory.Domain.Shared;
-
-namespace Inventory.Api.Controllers;
-//[SqlInjectionFilter]
+﻿namespace Inventory.Api.Controllers;
+[SqlInjectionFilter]
 [ApiController]
 [Route("inventory/api/[controller]/[Action]")]
 public abstract class InventoryBaseController(ISender sender) :ControllerBase

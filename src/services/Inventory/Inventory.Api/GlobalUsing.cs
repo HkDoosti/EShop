@@ -4,6 +4,8 @@ global using System.Reflection;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.AspNetCore.Mvc;
 //----------Inventory
+global using Inventory.Api;
+global using Inventory.Domain.Shared;
 global using Inventory.Application;
 global using Inventory.Api.Extensions;
 global using Inventory.Infrastructure.Data;

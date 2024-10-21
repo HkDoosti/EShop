@@ -15,8 +15,10 @@ public static class ServiceCollectionExtension
     }
     public static IServiceCollection AddInventoryApplication(this IServiceCollection services)
     {
-        //services.AddValidatorsFromAssembly(Assemblies.InventoryApplicationAssembly);
-            
+         services.AddValidatorsFromAssembly(
+            assembly: Assemblies.InventoryApplicationAssembly,
+            includeInternalTypes: true);
+
         services.AddMediatR(cfg => 
         {
             cfg.RegisterServicesFromAssemblies(Assemblies.InventoryApplicationAssembly);

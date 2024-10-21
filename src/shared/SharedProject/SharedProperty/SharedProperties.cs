@@ -18,8 +18,9 @@ public class SharedProperties<T,TEntityId,TUserId>  where T : class
             modelBuilder.Entity(entityType, b => 
             {
                 b.Property<bool>("IsDeleted").IsRequired();
-                b.Property<DateTime>("CreationDate").IsRequired();
-                b.Property<DateTime>("EditionDate");
+                b.Property<DateTime>("DeletedDateTime");
+                b.Property<DateTime>("CreationDateTime").IsRequired();
+                b.Property<DateTime>("EditionDateTime");
                  
             }
             );

@@ -14,6 +14,7 @@ global using Inventory.Domain.Data.Entities;
 global using Inventory.Application.IRepository;
 global using Inventory.Application.IRepository.ICustomRepositories;
 global using Inventory.Application.Abstractions;
+global using Inventory.Domain.Shared;
 //-------------------FluentValidation
 global using FluentValidation;
 //------------------------
