@@ -1,10 +1,9 @@
-version: '3.4'
 
 services:
   inventorydb:
     image: postgres
   basketdb:
-    image: redis:alpine
+    image: redis:latest
   pgadmin:
     image: dpage/pgadmin4
   inventory.api:
